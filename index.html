@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fa", "en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎰 Random Number Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #0f2027, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Lalezar;
+    color: white;
+}
+
+.container {
+    background: rgba(0,0,0,0.65);
+    padding: 35px;
+    border-radius: 25px;
+    width: 380px;
+    max-width: 95%;
+    text-align: center;
+    box-shadow: 0 0 60px cyan;
+    animation: glow 4s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 30px cyan; }
+    to   { box-shadow: 0 0 70px magenta; }
+}
+
+h1 {
+    margin-bottom: 25px;
+    color: #00ffff;
+    font-family: Lalezar;
+    font-size: 28px;
+}
+
+button {
+    margin-bottom: 25px;
+    color: black;
+    font-family: Lalezar;
+    font-size: 35px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    font-family: BMORVARID;
+    font-size: 20px;
+    border-radius: 50px;
+    border: none;
+    text-align: center;
+}
+
+button {
+    margin-top: 20px;
+    padding: 16px;
+    width: 100%;
+    font-size: 22px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(90deg, blue, red);
+    color: black;
+    transition: 0.3s;
+}
+
+button:hover {
+    width: 100%;
+    transform: scale(1.08);
+    box-shadow: 0 0 25px ;
+    color: #0EDFE4;
+}
+
+input_type {
+     width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    font-family: Lalezar;
+    font-size: 18px;
+}
+    
+#result {
+    margin-top: 30px;
+    font-family: Bahman;
+    font-size: 56px;
+    font-weight: bold;
+    color: yellow;
+    min-height: 70px;
+}
+
+#error {
+    margin-top: 1px;
+    color: red;
+    font-size: 16px;
+}
+
+footer {
+    margin-top: 1px;
+    font-size: 15px;
+    opacity: 0.7;
+    font-family: Minecraft;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1> 🎰 عدد رندوم 🎰 </h1>
+
+    <input type="number" id="min" placeholder="عدد شروع"></input_type>
+    <input type="number" id="max" placeholder="عدد پایان"></input_type>
+
+    <button onclick="generate()">🎯 تولید عدد</button>
+
+    <div id="result"></div>
+    <div id="error"></div>
+
+    <footer> ⚡ Powered by ParhamSmd </footer>
+</div>
+
+<audio id="sound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-29.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function generate() {
+    const min = Number(document.getElementById("min").value);
+    const max = Number(document.getElementById("max").value);
+    const result = document.getElementById("result");
+    const error = document.getElementById("error");
+    const sound = document.getElementById("sound");
+
+    error.textContent = "";
+    result.textContent = "";
+
+    if (isNaN(min) || isNaN(max) || min >= max) {
+        error.textContent = "❌ بازه وارد شده اشتباه است";
+        return;
+    }
+
+    let counter = 0;
+    sound.currentTime = 0;
+    sound.play();
+
+    const animation = setInterval(() => {
+        result.textContent =
+            Math.floor(Math.random() * (max - min + 1)) + min;
+        counter++;
+
+        if (counter > 20) {
+            clearInterval(animation);
+            sound.pause();
+        }
+    }, 70);
+}
+</script>
+
+</body>
+</html>
